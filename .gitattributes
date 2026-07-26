@@ -1,0 +1,3 @@
+# 合并时始终保留本仓库的版本，不接受上游覆盖
+readme.md       merge=ours
+figure/**       merge=ours
