@@ -14,6 +14,9 @@ on:
 
   workflow_dispatch:
   
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,17 +28,15 @@ jobs:
 
       - name: Run auto-build.sh
         run: ./factory/auto_build.sh
-      
-      - name: Update lazy rules
-        run: |
-          rm lazy.conf lazy_group.conf
-          curl -O https://raw.githubusercontent.com/LOWERTOP/Shadowrocket/main/lazy.conf
-          curl -O https://raw.githubusercontent.com/LOWERTOP/Shadowrocket/main/lazy_group.conf
-        
+
+      # 注意：不再从外部下载 lazy.conf/lazy_group.conf
+      # 这两个文件已在本仓库 build 分支包含方案A DNS防泄露配置
+      # 下载外部文件会覆盖 dns-server/fallback-dns-server/dns-direct-system 的修改
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           BRANCH: build
           FOLDER: .
-          commit-message : 'Nightly build'
-          
+          commit-message: 'Nightly build'
+
