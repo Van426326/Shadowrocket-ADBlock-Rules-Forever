@@ -1,17 +1,7 @@
 name: Build Shadowrocket Rules
 
 on:
-  schedule:
-    # 每日8时开始
-    - cron:  '0 23 * * *'
-  
-  push:
-    branches:
-      - build
-    paths-ignore: 
-      - '**.md'
-      - 'LICENSE'
-
+  # 已停用定时/自动触发(仓库弃维护),仅保留手动 workflow_dispatch
   workflow_dispatch:
   
 permissions:
